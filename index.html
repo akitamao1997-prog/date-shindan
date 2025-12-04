@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIデートプラン診断</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <div id="start-screen" class="screen active">
+            <div class="logo-area">
+                <span class="subtitle">1ヶ月被りなし！毎日使える</span>
+                <h1>最強の<br>デートプラン<br>診断 💘</h1>
+            </div>
+            <p class="description">今の「気分・予算・天気」から<br>AIが最適なプランを叩き出します。<br>（全30種以上搭載）</p>
+            <button class="btn-primary" onclick="startQuiz()">診断をはじめる</button>
+        </div>
+
+        <div id="question-screen" class="screen">
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+            <div class="question-box">
+                <span class="q-number" id="q-number">Q1</span>
+                <h2 id="q-text">質問テキスト</h2>
+            </div>
+            <div class="options-area">
+                <button class="btn-option" onclick="selectOption('A')">
+                    <span id="opt-a">選択肢A</span>
+                </button>
+                <button class="btn-option" onclick="selectOption('B')">
+                    <span id="opt-b">選択肢B</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="loading-screen" class="screen">
+            <div class="spinner"></div>
+            <p>条件に合うデートを<br>検索中...</p>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <div class="result-card">
+                <span class="result-subtitle">今日のデートはこれ！</span>
+                <h2 id="result-title">結果タイトル</h2>
+                <div class="result-tags">
+                    </div>
+                <p id="result-desc">キャッチコピー</p>
+                
+                <div class="action-box">
+                    <h3>💡 具体的なミッション</h3>
+                    <p id="result-action">行動内容</p>
+                </div>
+
+                <div class="ad-area">
+                    <p class="ad-text">👇 これがあると便利かも</p>
+                    <a id="affiliate-link" href="#" target="_blank" class="btn-affiliate">
+                        <span id="affiliate-text">リンクテキスト</span>
+                    </a>
+                </div>
+            </div>
+
+            <button class="btn-retry" onclick="restartQuiz()">条件を変えて再診断 ↻</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

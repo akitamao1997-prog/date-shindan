@@ -1,0 +1,317 @@
+/* 全体のリセットとフォント設定 */
+:root {
+    --primary-color: #FF758C;
+    --secondary-color: #FF7EB3;
+    --accent-color: #2575FC;
+    --bg-gradient: linear-gradient(135deg, #FF758C 0%, #FF7EB3 100%);
+    --text-color: #333;
+    --white: #ffffff;
+    --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-color);
+}
+
+/* アプリ画面コンテナ */
+.app-container {
+    width: 100%;
+    max-width: 430px;
+    height: 100vh;
+    max-height: 932px; /* iPhone Pro Max size */
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* 画面共通設定 */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    background: var(--white);
+    z-index: 1;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+/* スタート画面 */
+#start-screen {
+    background: var(--bg-gradient);
+    color: var(--white);
+    text-align: center;
+}
+
+.logo-area h1 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.description {
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+    line-height: 1.7;
+}
+
+/* ボタン */
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: transform 0.1s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+.btn-primary {
+    background: var(--white);
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 16px 48px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* 質問画面 */
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: #f0f0f0;
+}
+
+#progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.question-box {
+    margin-bottom: 40px;
+    text-align: center;
+    width: 100%;
+}
+
+.q-number {
+    color: var(--primary-color);
+    font-weight: 800;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+#q-text {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+.options-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.btn-option {
+    background: #f8f9fa;
+    border: 2px solid #eee;
+    padding: 22px;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #444;
+    text-align: left;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.btn-option:hover {
+    background: #fff5f7;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* ローディング */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #eee;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 24px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 結果画面 */
+#result-screen {
+    background: #fafafa;
+    justify-content: flex-start; /* 上寄せ */
+    padding-top: 50px;
+    overflow-y: auto;
+}
+
+.result-card {
+    background: var(--white);
+    width: 100%;
+    padding: 32px 24px;
+    border-radius: 24px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    border-top: 8px solid var(--primary-color);
+    margin-bottom: 24px;
+}
+
+.result-subtitle {
+    color: #888;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+}
+
+#result-title {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.result-tags {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.result-tags span {
+    display: inline-block;
+    background: #f0f2f5;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 700;
+}
+
+#result-desc {
+    margin: 16px 0 24px 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+.action-box {
+    background: #eff6ff; /* 薄い青 */
+    padding: 20px;
+    border-radius: 16px;
+    text-align: left;
+    margin-bottom: 24px;
+}
+
+.action-box h3 {
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+#result-action {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+    font-weight: 700;
+}
+
+/* 収益化エリア */
+.ad-area {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 2px dashed #eee;
+}
+
+.ad-text {
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.btn-affiliate {
+    display: block;
+    background: #ff9a9e;
+    background: linear-gradient(to right, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 800;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 117, 140, 0.3);
+    transition: 0.2s;
+    font-size: 1rem;
+}
+
+.btn-affiliate:hover {
+    opacity: 0.95;
+    transform: translateY(-2px);
+}
+
+.btn-retry {
+    background: transparent;
+    color: #999;
+    font-size: 0.9rem;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
