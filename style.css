@@ -67,6 +67,9 @@ body {
     background: var(--bg-gradient);
     color: var(--white);
     text-align: center;
+    /* フッターを下に配置するためにレイアウト調整 */
+    justify-content: center;
+    position: relative;
 }
 
 .logo-area h1 {
@@ -88,6 +91,39 @@ body {
     margin-bottom: 40px;
     line-height: 1.7;
 }
+
+/* ▼▼ フッター（法的表記）用スタイル ▼▼ */
+.legal-footer {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+.footer-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin: 0 4px;
+    font-weight: 700;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.separator {
+    margin: 0 2px;
+    opacity: 0.6;
+}
+
+.copyright {
+    margin-top: 8px;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+/* ▲▲ 追加ここまで ▲▲ */
 
 /* ボタン */
 button {
