@@ -67,7 +67,6 @@ body {
     background: var(--bg-gradient);
     color: var(--white);
     text-align: center;
-    /* フッターを下に配置するためにレイアウト調整 */
     justify-content: center;
     position: relative;
 }
@@ -92,7 +91,7 @@ body {
     line-height: 1.7;
 }
 
-/* ▼▼ フッター（法的表記）用スタイル ▼▼ */
+/* フッター */
 .legal-footer {
     position: absolute;
     bottom: 30px;
@@ -109,10 +108,6 @@ body {
     font-weight: 700;
 }
 
-.footer-links a:hover {
-    text-decoration: underline;
-}
-
 .separator {
     margin: 0 2px;
     opacity: 0.6;
@@ -123,7 +118,6 @@ body {
     font-size: 0.7rem;
     opacity: 0.8;
 }
-/* ▲▲ 追加ここまで ▲▲ */
 
 /* ボタン */
 button {
@@ -231,8 +225,9 @@ button:active {
 /* 結果画面 */
 #result-screen {
     background: #fafafa;
-    justify-content: flex-start; /* 上寄せ */
-    padding-top: 50px;
+    justify-content: flex-start;
+    padding-top: 40px;
+    padding-bottom: 40px;
     overflow-y: auto;
 }
 
@@ -288,7 +283,7 @@ button:active {
 }
 
 .action-box {
-    background: #eff6ff; /* 薄い青 */
+    background: #eff6ff;
     padding: 20px;
     border-radius: 16px;
     text-align: left;
@@ -343,11 +338,51 @@ button:active {
     transform: translateY(-2px);
 }
 
+/* SNSシェアボタンエリア */
+.share-area {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.share-area p {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-share {
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.share-x {
+    background: #000; /* X Black */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.share-line {
+    background: #06C755; /* LINE Green */
+    box-shadow: 0 4px 10px rgba(6, 199, 85, 0.3);
+}
+
 .btn-retry {
     background: transparent;
     color: #999;
     font-size: 0.9rem;
     padding: 12px;
-    margin-bottom: 20px;
     font-weight: 700;
 }
