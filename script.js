@@ -1,17 +1,19 @@
-// ■ 設定: アフィリエイトリンクのURL
-// ここを自分のリンク（A8.netなど）に書き換えるだけでOK
+// ■ 設定: アフィリエイトリンクのURL管理
+// ★審査が通ったら、ここを「A8.net」等のアフィリエイトリンクに書き換えてください！
 const LINKS = {
-    movie: "https://video.unext.jp/",           // U-NEXTなど
-    car: "https://travel.rakuten.co.jp/cars/", // レンタカー
-    hotel: "https://travel.rakuten.co.jp/",     // 宿泊・旅行
-    restaurant: "https://restaurant.ikyu.com/", // レストラン予約
-    activity: "https://www.asoview.com/",       // アソビュー
-    amazon: "https://www.amazon.co.jp/",        // グッズ購入
-    map: "https://www.google.co.jp/maps/"       // マップ（収益なし用）
+    movie: "https://video.unext.jp/",           // 例: U-NEXT (A8リンクに差替予定)
+    car: "https://travel.rakuten.co.jp/cars/", // 例: 楽天レンタカー (A8リンクに差替予定)
+    hotel: "https://travel.rakuten.co.jp/",     // 例: 楽天トラベル (A8リンクに差替予定)
+    restaurant: "https://restaurant.ikyu.com/", // 例: 一休.com (A8リンクに差替予定)
+    activity: "https://www.asoview.com/",       // 例: アソビュー (A8リンクに差替予定)
+    amazon: "https://www.amazon.co.jp/",        // 例: Amazon/楽天アフィリエイト (差替予定)
+    map: "https://www.google.co.jp/maps/"       // 収益なし用（GoogleMap）
 };
 
+// 現在の診断結果を保存する変数（シェア用）
+let currentResultData = null;
+
 // ■ データ: 30種類以上のデートプラン
-// types: [インドア/アウトドア, 予算(1:安~3:高), 元気度(1:低~3:高)]
 const dateDatabase = [
     // --- 家・インドア・まったり (予算1, 元気1) ---
     {
@@ -377,12 +379,10 @@ function selectOption(choice) {
     const q = questions[currentQuestionIndex];
     
     // 回答をスコア化して保存
-    // Aを選んだら低コスト・インドア寄り、Bなら高コスト・アウトドア寄り等の簡易ロジック
     if (q.key === 'cost') userAnswers.cost = (choice === 'A') ? 1 : 3;
     if (q.key === 'energy') userAnswers.energy = (choice === 'A') ? 1 : 3;
     if (q.key === 'weather') userAnswers.type = (choice === 'A') ? 'indoor' : 'outdoor';
     
-    // 他の質問は「タグ」として保存（今回は簡易化のためログに残すのみ）
     userAnswers[q.key] = choice;
 
     if (currentQuestionIndex < questions.length - 1) {
@@ -400,43 +400,29 @@ function finishQuiz() {
     // 計算演出（1.5秒待機）
     setTimeout(() => {
         const result = calculateResult();
+        currentResultData = result; // シェア用にデータを保存
         displayResult(result);
         loadingScreen.classList.remove("active");
         resultScreen.classList.add("active");
     }, 1500);
 }
 
-// ■ 結果選定ロジック（ここが重要）
 function calculateResult() {
-    // 1. SSR判定 (5%の確率)
     if (Math.random() < 0.05) return ssrResult;
 
-    // 2. フィルタリング
-    // ユーザーの条件（予算、天気など）に合うデートだけを抽出する
     let candidates = dateDatabase.filter(plan => {
-        // 天気チェック: 雨(indoor指定)なら、outdoorプランを除外
         if (userAnswers.type === 'indoor' && plan.conditions.type === 'outdoor') return false;
-        
-        // 予算チェック: ユーザー予算より高いプランは除外
         if (plan.conditions.cost > userAnswers.cost) return false;
-
-        // 元気チェック: ユーザー元気度より激しいプランは除外
-        // (ただし、元気がある時にまったりプランが出るのはOKとする)
         if (plan.conditions.energy > userAnswers.energy) return false;
-
         return true;
     });
 
-    // 3. 候補が0になってしまった場合の救済措置
-    // （条件が厳しすぎた場合、条件を緩めて再検索）
     if (candidates.length === 0) {
         candidates = dateDatabase.filter(plan => {
-            // 天気だけは守る
             return (userAnswers.type === 'indoor' ? plan.conditions.type !== 'outdoor' : true);
         });
     }
 
-    // 4. ランダムに1つ選ぶ（これが「毎日変わる」秘訣）
     const randomIndex = Math.floor(Math.random() * candidates.length);
     return candidates[randomIndex];
 }
@@ -474,4 +460,24 @@ function displayResult(data) {
 function restartQuiz() {
     resultScreen.classList.remove("active");
     startQuiz();
+}
+
+// ▼▼▼ 新追加: SNSシェア機能 ▼▼▼
+function shareToX() {
+    if (!currentResultData) return;
+    
+    const text = `今日のデートは【${currentResultData.title}】に決定！\nAIが決めたプラン、実行してきます🫡\n#AIデートプラン診断\n`;
+    const url = "https://date-plandate.com"; // 本番URL
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+    
+    window.open(tweetUrl, '_blank');
+}
+
+function shareToLine() {
+    if (!currentResultData) return;
+    
+    const text = `今日のデートプランが決まりました！\n【${currentResultData.title}】\nhttps://date-plandate.com`;
+    const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(text)}`;
+    
+    window.open(lineUrl, '_blank');
 }
