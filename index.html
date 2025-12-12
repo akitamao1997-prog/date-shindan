@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIデートプラン診断</title>
+    <title>AIデートプラン診断 | 失敗しないデートプランを自動生成</title>
+    <meta name="description" content="今日のデートどこ行く？AIが予算や気分に合わせて最適なデートプランを30秒で提案します。">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
@@ -28,7 +30,7 @@
                 </nav>
                 <p class="copyright">&copy; 2025 AI Date Plan</p>
             </div>
-            </div>
+        </div>
 
         <div id="question-screen" class="screen">
             <div class="progress-bar">
@@ -71,6 +73,18 @@
                     <a id="affiliate-link" href="#" target="_blank" class="btn-affiliate">
                         <span id="affiliate-text">リンクテキスト</span>
                     </a>
+                </div>
+            </div>
+
+            <div class="share-area">
+                <p>診断結果を相手に送る！</p>
+                <div class="share-buttons">
+                    <button class="btn-share share-x" onclick="shareToX()">
+                        𝕏 でポスト
+                    </button>
+                    <button class="btn-share share-line" onclick="shareToLine()">
+                        LINEで送る
+                    </button>
                 </div>
             </div>
 
